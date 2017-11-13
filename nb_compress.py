@@ -1,6 +1,11 @@
 import json
 import re
 import argparse
+import sys
+
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
 
 
 def compress_output(output, mode):
@@ -35,7 +40,7 @@ def compress_output(output, mode):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('file', type=str, help='input ipython notebook file')
-    parser.add_argument('-o', '--output', type=str, required=True, help='output filename')
+    parser.add_argument('-o', '--output', type=str, help='output filename')
     parser.add_argument('--first-last-epoch', action='store_true')
     parser.add_argument('--no-image', action='store_true')
     parser.add_argument('--no-traceback', action='store_true')
@@ -49,13 +54,13 @@ def main():
     mode['no_execution_count'] = args.no_execution_count
 
     if mode['first_last_epoch']:
-        print('Apply filter: first_last_epoch')
+        eprint('Apply filter: first_last_epoch')
     if mode['no_image']:
-        print('Apply filter: no_image')
+        eprint('Apply filter: no_image')
     if mode['no_traceback']:
-        print('Apply filter: no_tracekback')
+        eprint('Apply filter: no_tracekback')
     if mode['no_execution_count']:
-        print('Apply filter: no_execution_count')
+        eprint('Apply filter: no_execution_count')
 
     with open(args.file) as f:
         data = json.load(f)
@@ -76,7 +81,9 @@ def main():
         with open(args.output, "w") as f:
             jsonStr = json.dumps(data)
             f.write(jsonStr)
-            print('Finished.')
+            eprint('Finished.')
+    else:
+        print(json.dumps(data))
 
 if __name__ == '__main__':
     main()
