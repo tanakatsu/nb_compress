@@ -41,10 +41,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('file', type=str, help='input ipython notebook file')
     parser.add_argument('-o', '--output', type=str, help='output filename')
-    parser.add_argument('--first-last-epoch', action='store_true')
-    parser.add_argument('--no-image', action='store_true')
-    parser.add_argument('--no-traceback', action='store_true')
-    parser.add_argument('--no-execution-count', action='store_true')
+    parser.add_argument('--first-last-epoch', action='store_true', help='show first and last epochs only')
+    parser.add_argument('--no-image', action='store_true', help='cut image code')
+    parser.add_argument('--no-traceback', action='store_true', help='cut traceback code')
+    parser.add_argument('--no-execution-count', action='store_true', help='clear execution count')
     args = parser.parse_args()
 
     mode = {}
